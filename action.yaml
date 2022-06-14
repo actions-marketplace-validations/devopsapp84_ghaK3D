@@ -1,6 +1,9 @@
 name: 'Create K3d Temporary Cluster'
 description: "⎈ Github action to spinup temp cluster"
 author: 'Janusz Kujawa <janusz.kujawa@gmail.com>'
+branding:
+  icon: 'thumbs-up'
+  color: 'gray-dark'
 inputs:
   cluster_name:
     description: "Cluster name: "
