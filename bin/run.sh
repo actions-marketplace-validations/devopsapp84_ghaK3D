@@ -62,11 +62,11 @@ function create_k3d_cluster {
   if [[ $(k3d cluster list --no-headers | grep $CLUSTER_NAME) ]]; then
     printf "%b" "\U26D4 Cluster: \e[1;34m$CLUSTER_NAME\e[0m already exist!\n"
     exit
-  elif [ -f "./conf/${CLUSTER_NAME}.conf" ]; then
+  elif [ -f "./conf/${CLUSTER_NAME}.yaml" ]; then
     printf "%b" "\U1F525 Creating Kubernetes Cluster: \e[1;34m$CLUSTER_NAME\e[0m "
     k3d cluster create ${CLUSTER_NAME} -c ./conf/${CLUSTER_NAME}.yaml >> $k3d_log &
   else
-    printf "%b" "\U1F440 Kubernetes cluster config: \e[1;34m${CLUSTER_NAME}.conf\e[0m does not exist! Please check k3d dir! \n"
+    printf "%b" "\U1F440 Kubernetes cluster config: \e[1;34m${CLUSTER_NAME}.yaml\e[0m does not exist! Please check k3d dir! \n"
     exit 1
   fi
 }
