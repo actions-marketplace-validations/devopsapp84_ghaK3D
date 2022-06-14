@@ -52,8 +52,8 @@ progress_k3d_cluster() {
 
 function create_k3d_cluster {
   pwd
-  #ls -la 
-  #ls -la ./conf/
+  ls -la 
+  ls -la ./conf/
   #if ! command -v k3d &> /dev/null
   #then
   #  echo "k3d cli not installed, installing"
@@ -111,11 +111,11 @@ while getopts "hcdl" options; do
       ;;
     c)
       create_k3d_cluster
-      progress_k3d_cluster
+      #progress_k3d_cluster
       ;;
     d)
       delete_k3d_cluster
-      progress_k3d_cluster
+      #progress_k3d_cluster
       ;;
     l)
       list_k3d_cluster
