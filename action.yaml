@@ -21,7 +21,7 @@ runs:
         CONF: ${{ inputs.conf }}
         K3D_VERSION: ${{ inputs.version }}
       shell: bash
-      run: ${{ github.action_path }}/bin/run.sh -c -c ${{ env.CLUSTER_NAME }}
+      run: ${{ github.action_path }}/bin/run.sh -c ${{ env.CLUSTER_NAME }}
     - name: Check if cluster ${{ env.CLUSTER_NAME}} is created
       id: verify
       shell: bash
