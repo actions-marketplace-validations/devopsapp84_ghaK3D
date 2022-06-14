@@ -1,34 +1,17 @@
-name: ''
-description: ''
-
-runs:
-  using: 'k3d'
-  main: 'bin/k3d'
-branding:
-  icon: 'thumbs-up'
-  color: 'gray-dark'
-inputs:
-  event:
-    description: 'The event to perform on the pull request review.'
-    default: 'APPROVE'
-  body:
-    description: 'The contents of the review body comment. Required when event is COMMENT or REQUEST_CHANGES.'
-  cluster-size:
-    description: 'How many workers deployed'
-    required: true
-    
 name: 'Create K3d Temporary Cluster'
 description: "⎈ Github action to helm releases testings"
 author: 'Janusz Kujawa <janusz.kujawa@gmail.com>'
 inputs:
   name:
-    description: "Cluster name:"
+    description: "Cluster name: "
     required: true
   args:
-    description: "Extra args:"
+    description: "Extra args: "
     required: false
+  size:
+    description: "Size based on config file: "
   k3d-version:
-    description: "K3d version"
+    description: "K3d version: "
     required: false
 runs:
   using: composite
