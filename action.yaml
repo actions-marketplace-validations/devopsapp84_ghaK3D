@@ -5,10 +5,10 @@ inputs:
   name:
     description: "Cluster name: "
     required: true
-  size:
+  conf:
     description: "Size based on config file: "
     required: false
-  k3d-version:
+  version:
     description: "K3d version: "
     required: false
 runs:
@@ -18,6 +18,6 @@ runs:
       shell: bash
       run: ${{ github.action_path }}/bin/run2.sh deploy
       env:
-        CLUSTER_NAME: ${{ inputs.cluster-name }}
-        ARGS: ${{ inputs.args }}
-        K3D_VERSION: ${{ inputs.k3d-version }}
+        CLUSTER_NAME: ${{ inputs.name }}
+        CONF: ${{ inputs.conf }}
+        K3D_VERSION: ${{ inputs.version }}
