@@ -10,6 +10,14 @@ Create github action that will suit 3 types of cluster depends on sizing:
 | medium | 1      | 3      | ./conf/medium.yaml |  
 | big    | 3      | 1      | ./conf/big.yaml    |  
 
+:rocket:
+Cluster name should be equal config name for instance when you would like to deploy small cluster you must set intput:
+
+```console
+ cluster_name=small
+```
+
+
 ## Inputs
 cluster_name: 
 Default: small
