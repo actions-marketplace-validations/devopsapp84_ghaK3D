@@ -1,8 +1,8 @@
 #!/bin/bash
-# WHEN:        WHO:             WHAT:
-# 04/08/2022   Janusz Kujawa    Created initial parts of script.
-# 04/22/2022   Janusz Kujawa	Added invalid_option function
-# 14/06/2022   Janusz Kujawa    Adjust script to use within GH actions
+# WHEN:        WHO:           WHAT:
+# 04/08/2022   Janusz Kujawa  Created initial parts of script.
+# 04/22/2022   Janusz Kujawa  Added invalid_option function
+# 14/06/2022   Janusz Kujawa  Adjust script to use within GH actions
 
 ### Variables
 CLUSTER_NAME="${2:-"small"}"
