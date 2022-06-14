@@ -58,13 +58,11 @@ function create_k3d_cluster {
     curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
   fi
 
-  curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
-
   ### Create cluster if des not exist
   if [[ $(k3d cluster list --no-headers | grep $CLUSTER_NAME) ]]; then
     printf "%b" "\U26D4 Cluster: \e[1;34m$CLUSTER_NAME\e[0m already exist!\n"
     exit
-  elif [ -f "./k3d/${CLUSTER_NAME}.conf" ]; then
+  elif [ -f "./conf/${CLUSTER_NAME}.conf" ]; then
     printf "%b" "\U1F525 Creating Kubernetes Cluster: \e[1;34m$CLUSTER_NAME\e[0m "
     k3d cluster create ${CLUSTER_NAME} -c ./conf/${CLUSTER_NAME}.yaml >> $k3d_log &
   else
