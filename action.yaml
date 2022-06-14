@@ -21,3 +21,6 @@ runs:
         CLUSTER_NAME: ${{ inputs.name }}
         CONF: ${{ inputs.conf }}
         K3D_VERSION: ${{ inputs.version }}
+    - id: verify
+      shell: bash
+      run: ${{ github.action_path }}/bin/run.sh -c}}
