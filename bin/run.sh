@@ -51,6 +51,8 @@ progress_k3d_cluster() {
 
 
 function create_k3d_cluster {
+  pwd
+  ls -la k3d
   if ! command -v k3d &> /dev/null
   then
     echo "k3d cli not installed, installing"
@@ -64,8 +66,6 @@ function create_k3d_cluster {
     printf "%b" "\U1F525 Creating Kubernetes Cluster: \e[1;34m$CLUSTER_NAME\e[0m "
     k3d cluster create ${CLUSTER_NAME} -c k3d/${CLUSTER_NAME}.yaml >> $k3d_log &
   else
-    pwd
-    ls -la k3d
     printf "%b" "\U1F440 Kubernetes cluster config: \e[1;34m${CLUSTER_NAME}.yaml\e[0m does not exist! Please check k3d dir! \n"
     exit 1
   fi
