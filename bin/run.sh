@@ -51,13 +51,14 @@ progress_k3d_cluster() {
 
 
 function create_k3d_cluster {
-
+  pwd
+  ls -la 
+  ls -la ./conf/
   if ! command -v k3d &> /dev/null
   then
     echo "k3d cli not installed, installing"
     curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
   fi
-
   ### Create cluster if des not exist
   if [[ $(k3d cluster list --no-headers | grep $CLUSTER_NAME) ]]; then
     printf "%b" "\U26D4 Cluster: \e[1;34m$CLUSTER_NAME\e[0m already exist!\n"
