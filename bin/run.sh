@@ -52,8 +52,8 @@ progress_k3d_cluster() {
 
 function create_k3d_cluster {
   pwd
-  #ls -la 
-  #ls -la ./conf/
+  ls -la 
+  ls -la ./conf/
   #if ! command -v k3d &> /dev/null
   #then
   #  echo "k3d cli not installed, installing"
