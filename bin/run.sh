@@ -111,11 +111,11 @@ while getopts "hcdl" options; do
       ;;
     c)
       create_k3d_cluster
-      progress_k3d_cluster
+      #progress_k3d_cluster
       ;;
     d)
       delete_k3d_cluster
-      progress_k3d_cluster
+      #progress_k3d_cluster
       ;;
     l)
       list_k3d_cluster
