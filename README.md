@@ -10,6 +10,8 @@ Create github action that will suit 3 types of cluster depends on sizing:
 | medium | 1      | 3      | ./k3d/medium.yaml |  
 | big    | 3      | 1      | ./k3d/big.yaml    |  
 
+I used pure limited output with several waits (waiting for k3s core components to be up and running.)
+
 :rocket:
 Cluster name should be equal config name for instance when you would like to deploy small cluster you must set intput:
 
@@ -17,10 +19,16 @@ Cluster name should be equal config name for instance when you would like to dep
  cluster_name=small
 ```
 
-
 ## Inputs
 cluster_name: 
 Default: small
 
 cluster_version:
 Default: latest
+
+## Requirements
+🤔 Your repo where action want run must contains k3d directory with this 3 files **(k3d/{small/medium/big}.yaml)**.
+    Otherwise action will fail!
+
+## Sample output
+![Action output](./images/output.png)

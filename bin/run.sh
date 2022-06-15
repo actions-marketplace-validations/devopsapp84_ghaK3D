@@ -27,14 +27,10 @@ invalid_option() {
 }
 
 progress_k3d_cluster() {
-  sp='/-\|'
-  printf ' '
   while [ 1 ]; do
       k3d_progress=$(grep -i "successfully" $k3d_log)
       if [ -z "$k3d_progress" ]; then
-        printf '\b%.1s' "$sp"
-        sleep 0.2
-        sp=${sp#?}${sp%???}
+        sleep 1
       else
         if grep -q "deleted" "$k3d_log"; then
           printf "%b" "\n\U2705 Cluster: \e[1;34m$CLUSTER_NAME\e[0m sucessfully deleted\n"
@@ -49,22 +45,41 @@ progress_k3d_cluster() {
   done
 }
 
-
-function create_k3d_cluster {
+function install_clis {
+  # k3d
   if ! command -v k3d &> /dev/null
   then
-    echo "k3d cli not installed, installing"
+    printf "%b" "\U1F197 No k3d cli present installing...\n"
     curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+  else
+    printf "%b" "\U1F6AB k3d cli was previously installed...\n"
   fi
-  pwd
-  ls -la
-  ### Create cluster if des not exist
+  
+  # kubectl
+  if ! command -v kubectl &> /dev/null
+  then
+    printf "%b" "\U1F197 No kubectl cli present installing...\n"
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+    echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+    chmod +x kubectl
+    mkdir -p ~/.local/bin
+    mv ./kubectl ~/.local/bin/kubectl
+    kubectl version
+  else
+    printf "%b" "\U1F6AB kubectl cli was previously installed...\n"
+  fi
+
+}
+
+function create_k3d_cluster {
+  # Create cluster if des not exist
   if [[ $(k3d cluster list --no-headers | grep $CLUSTER_NAME) ]]; then
     printf "%b" "\U26D4 Cluster: \e[1;34m$CLUSTER_NAME\e[0m already exist!\n"
     exit
-  elif [ -f "./k3d/${CLUSTER_NAME}.yaml" ]; then
+  elif [ -f "k3d/${CLUSTER_NAME}.yaml" ]; then
     printf "%b" "\U1F525 Creating Kubernetes Cluster: \e[1;34m$CLUSTER_NAME\e[0m "
-    k3d cluster create ${CLUSTER_NAME} -c ./k3d/${CLUSTER_NAME}.yaml >> $k3d_log &
+    k3d cluster create ${CLUSTER_NAME} -c k3d/${CLUSTER_NAME}.yaml >> $k3d_log &
   else
     printf "%b" "\U1F440 Kubernetes cluster config: \e[1;34m${CLUSTER_NAME}.yaml\e[0m does not exist! Please check k3d dir! \n"
     exit 1
@@ -72,7 +87,7 @@ function create_k3d_cluster {
 }
 
 function delete_k3d_cluster {
-  ### Delete cluster if still exist
+  # Delete cluster if still exist
   if [[ $(k3d cluster list --no-headers | grep $CLUSTER_NAME) ]]; then
     printf "%b" "\U26A1 Cluster: \e[1;34m$CLUSTER_NAME\e[0m exists and will be deleted "
     k3d cluster delete $CLUTER_NAME >> $k3d_log 2>&1 &
@@ -109,12 +124,13 @@ while getopts "hcdl" options; do
       usage                                        
       ;;
     c)
+      install_clis
       create_k3d_cluster
-     # progress_k3d_cluster
+      progress_k3d_cluster
       ;;
     d)
       delete_k3d_cluster
-      #progress_k3d_cluster
+      progress_k3d_cluster
       ;;
     l)
       list_k3d_cluster
