@@ -13,16 +13,16 @@ inputs:
     required: false
 runs:
   using: composite
+  env:
+    CLUSTER_NAME: ${{ inputs.cluster_name }}
+    K3D_VERSION: ${{ inputs.version }}
   steps:
     - uses: actions/checkout@v3
     - name: Create k3d cluster
       id: main
-      env:
-        CLUSTER_NAME: ${{ inputs.cluster_name }}
-        K3D_VERSION: ${{ inputs.version }}
       shell: bash
       run: ${{ github.action_path }}/bin/run.sh -c ${{ env.CLUSTER_NAME }}
     - name: Check if cluster ${{ env.CLUSTER_NAME}} is created
       id: verify
       shell: bash
-      run: ${{ github.action_path }}/bin/run.sh -c ${{ env.CLUSTER_NAME }}
+      run: ${{ github.action_path }}/bin/run.sh -l ${{ env.CLUSTER_NAME }}
