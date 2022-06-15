@@ -27,4 +27,5 @@ cluster_version:
 Default: latest
 
 ## Requirements
-🤔 Your repo should contains k3d directory with this 3 files (k3d/{small/medium/big}.yaml)
+🤔 Your repo where action want run must contains k3d directory with this 3 files **(k3d/{small/medium/big}.yaml)**.
+    Otherwise action will fail!
