@@ -29,3 +29,6 @@ Default: latest
 ## Requirements
 🤔 Your repo where action want run must contains k3d directory with this 3 files **(k3d/{small/medium/big}.yaml)**.
     Otherwise action will fail!
+
+## Sample output
+![Action output](./images/output.png)
