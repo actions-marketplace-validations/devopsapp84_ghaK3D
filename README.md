@@ -31,4 +31,4 @@ Default: latest
     Otherwise action will fail!
 
 ## Sample output
-![Action output](./images/output.png)
+![Action output](https://github.com/devopsapp84/ghaK3D/raw/dev/images/output.png)
